@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    width: 340px;
+    min-height: 300px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h2 {
+    color: #e91e63;
+  }
+
+  button {
+    padding: 10px 22px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  #yesBtn {
+    background: #e91e63;
+    color: white;
+  }
+
+  #noBtn {
+    background: #ccc;
+    position: absolute;
+    left: 200px;
+    top: 160px;
+  }
+
+  .options {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .options label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h2 id="question">Will you be my Valentine? 💌</h2>
+
+  <div id="buttons">
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 💔</button>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<script>
+  const card = document.getElementById("card");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const buttons = document.getElementById("buttons");
+  const question = document.getElementById("question");
+  const content = document.getElementById("content");
+
+  function moveNo() {
+    const maxX = card.clientWidth - noBtn.offsetWidth;
+    const maxY = card.clientHeight - noBtn.offsetHeight;
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+  }
+
+  noBtn.addEventListener("mouseenter", moveNo);
+  noBtn.addEventListener("touchstart", moveNo);
+
+  yesBtn.addEventListener("click", () => {
+    if (!confirm("Are you really saying YES? 😍")) return;
+
+    question.innerHTML = "Yesss 🥳🍻😘";
+    buttons.style.display = "none";
+
+    content.innerHTML = `
+      <p>Choose your date with <b>Ajit</b> 💖</p>
+
+      <div class="options">
+        <label><input type="radio" name="date" value="Dinner Date 🍽️"> Dinner Date 🍽️</label>
+        <label><input type="radio" name="date" value="Long Drive 🚗💨"> Long Drive 🚗💨</label>
+        <label><input type="radio" name="date" value="Just Meet 🤝"> Just Meet 🤝</label>
+        <label><input type="radio" name="date" value="Kiss Date 😳😘"> Kiss Date 😳😘</label>
+        <label><input type="radio" name="date" value="Whatever you want 😍"> Whatever you want 😍</label>
+      </div>
+
+      <button onclick="submitChoice()">Send to Ajit on WhatsApp 💚</button>
+    `;
+  });
+
+  function submitChoice() {
+    const selected = document.querySelector('input[name="date"]:checked');
+    if (!selected) {
+      alert("Choose one option 😄");
+      return;
+    }
+
+    const phone = "917684834748"; // 🔴 PUT YOUR NUMBER HERE
+    const message = `I chose: ${selected.value} 💖`;
+
+    const whatsappURL =
+      "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+    window.open(whatsappURL, "_blank");
+  }
+</script>
+
+</body>
+</html>
+
